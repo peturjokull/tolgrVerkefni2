@@ -1,9 +1,8 @@
 import numpy as np
 import numpy.linalg as lin
 import math
-
-
-
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
 
 def daemi1(r0,r1,r2,r3,r4,c):
 	for i in range(10):
@@ -101,6 +100,23 @@ def daemi4(r0,r1,r2,r3,r4,c,rho,theta,phi):
 	C['d']=rho*math.sin(phi['d'])
 	R[3]=math.sqrt(A['d']**2 + B['d']**2 + (C['d']-r0['z'])**2)
 	t['d']=r0['d'] + R[3]/c
+
+	fig = plt.figure()
+	ax = fig.add_subplot(111, projection='3d')
+	ax.scatter(r0[0],r0[1],r0[2],c='b',s=1000)
+	ax.scatter(A[0],A[1],A[2],c='r')
+	ax.scatter(B[0],B[1],B[2],c='r')
+	ax.scatter(C[0],C[1],C[2],c='r')
+	ax.scatter(R[0],R[1],R[2],c='r')
+	# ax.scatter(19170,610,18390,c='r')
+	ax.set_xlabel('x-ás (km)')
+	ax.set_ylabel('y-ás (km)')
+	ax.set_zlabel('z-ás (km)')
+
+	ax.invert_xaxis()
+
+	plt.show()
+
 
 	dt=10**-8 #nákvæmni klukku í gervihnöttum
 	errorcoef=[[0,0,0,0],[0,0,0,1],[0,0,1,0],[0,0,1,1],[0,1,0,0],[0,1,0,1],[0,1,1,0],[0,1,1,1],[1,0,0,0],[1,0,0,1],[1,0,1,0],[1,0,1,1],[1,1,0,0],[1,1,0,1],[1,1,1,0],[1,1,1,1]]
