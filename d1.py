@@ -20,10 +20,12 @@ def daemi1(r0,r1,r2,r3,r4,c):
 		[(r0['x'] - r3['x'])*2 , (r0['y'] - r3['y'])*2 , (r0['z'] - r3['z'])*2 , (2*c**2)*(r3['d'] - r0['d'])],
 		[(r0['x'] - r4['x'])*2 , (r0['y'] - r4['y'])*2 , (r0['z'] - r4['z'])*2 , (2*c**2)*(r4['d'] - r0['d'])]
 		])
+		print(DF)
+		print("nytt")
 	
 		
 		res = lin.solve(DF,F)
-		print(res)
+
 		r0['x'] = r0['x'] - res[0][0]
 		r0['y'] = r0['y'] - res[1][0]
 		r0['z'] = r0['z'] - res[2][0]
@@ -105,42 +107,50 @@ def daemi4(r0,r1,r2,r3,r4,c,rho,theta,phi):
 	errorcoef=np.array(errorcoef)
 	errormagcoef = 0
 	maxFE = 0
+	
 
 	for i in range(0,15):
-		#t_new = t + np.multiply(dt,errorcoef[i])
-		t_new = t + dt*errorcoef[i]
+	
+		t_new =[
+			t['a'] + dt*errorcoef[i,0], 
+			t['b'] + dt*errorcoef[i,1],
+			t['c'] + dt*errorcoef[i,2],
+			t['d'] + dt*errorcoef[i,3]
+			]
+
 		for j in range(0,9):
 			DF = np.array([
-			[(r0[0] - A[0])*2 , (r0[1] - B[0])*2 , (r0[2] - C[0])*2 , (2*c**2)*(t_new[0]- r0[3])],
-			[(r0[0] - A[1])*2 , (r0[1] - B[1])*2 , (r0[2] - C[1])*2 , (2*c**2)*(t_new[1] - r0[3])],
-			[(r0[0] - A[2])*2 , (r0[1] - B[2])*2 , (r0[2] - C[2])*2 , (2*c**2)*(t_new[2]- r0[3])],
-			[(r0[0] - A[3])*2 , (r0[1] - B[3])*2 , (r0[2] - C[3])*2 , (2*c**2)*(t_new[3] - r0[3])]
+			[(r0['x'] - A['a'])*2 , (r0['y'] - B['a'])*2 , (r0['z'] - C['a'])*2 , (2*c**2)*(t_new[0]- r0['d'])],
+			[(r0['x'] - A['b'])*2 , (r0['y'] - B['b'])*2 , (r0['z'] - C['b'])*2 , (2*c**2)*(t_new[1] - r0['d'])],
+			[(r0['x'] - A['c'])*2 , (r0['y'] - B['c'])*2 , (r0['z'] - C['c'])*2 , (2*c**2)*(t_new[2]- r0['d'])],
+			[(r0['x'] - A['d'])*2 , (r0['y'] - B['d'])*2 , (r0['z'] - C['d'])*2 , (2*c**2)*(t_new[3] - r0['d'])]
 			])
-
+			
 			F = np.array([
-			[(r0[0] - A[0])**2 + (r0[1] - B[0])**2 + (r0[2] -  C[0])**2 - (c*(t_new[0] - r0[3]))**2],
-			[(r0[0] - A[1])**2 + (r0[1] - B[1])**2 + (r0[2] -  C[1])**2 - (c*(t_new[0] - r0[3]))**2],
-			[(r0[0] - A[2])**2 + (r0[1] - B[2])**2 + (r0[2] -  C[2])**2 - (c*(t_new[0] - r0[3]))**2],
-			[(r0[0] - A[3])**2 + (r0[1] - B[3])**2 + (r0[2] -  C[3])**2 - (c*(t_new[0] - r0[3]))**2]
+			[(r0['x'] - A['a'])**2 + (r0['y'] - B['a'])**2 + (r0['z'] -  C['a'])**2 - (c*(t_new[0] - r0['d']))**2],
+			[(r0['x'] - A['b'])**2 + (r0['y'] - B['b'])**2 + (r0['z'] -  C['b'])**2 - (c*(t_new[1] - r0['d']))**2],
+			[(r0['x'] - A['c'])**2 + (r0['y'] - B['c'])**2 + (r0['z'] -  C['c'])**2 - (c*(t_new[2] - r0['d']))**2],
+			[(r0['x'] - A['d'])**2 + (r0['y'] - B['d'])**2 + (r0['z'] -  C['d'])**2 - (c*(t_new[3] - r0['d']))**2]
 			])
-
+			
+			#print(t_new[0])
 			res=lin.solve(DF,F)
-			res = lin.solve(DF,F)
+			#res = lin.solve(DF,F)
 		r0['x'] = r0['x'] - res[0][0]
 		r0['y'] = r0['y'] - res[1][0]
 		r0['z'] = r0['z'] - res[2][0]
 		r0['d'] = r0['d'] - res[3][0]
 			
-		forwarderror=lin.norm([r0['x'],r0['y'],r0['z']-6370],np.inf)
-		backwarderror=c*lin.norm(t_new-t,np.inf)
+	forwarderror=lin.norm([r0['x'],r0['y'],r0['z']-6370],np.inf)
+	backwarderror=c*lin.norm([t_new[0]-t['a'],t_new[1]-t['b'],t_new[2]-t['c'],t_new[3]-t['d']],np.inf)
 
-		if maxFE <= abs(forwarderror):
-			maxFE = abs(forwarderror)
+	if maxFE <= abs(forwarderror):
+		maxFE = abs(forwarderror)
 
-		if errormagcoef <= abs(forwarderror/backwarderror):
-			errorcoeff = abs(forwarderror/backwarderror)
-	#return 1,2
-	return errorcoeff,maxFE	
+	if errormagcoef <= abs(forwarderror/backwarderror):
+		errormagcoef = abs(forwarderror/backwarderror)
+	
+	return errormagcoef,maxFE	
 
 r1 = {'x':15600, 'y':7540 ,'z':20140,'d':0.07074 } #Gervitungl 1
 r2 = {'x':18760, 'y':2750 ,'z':18610,'d':0.07220 } #Gervitungl 2
@@ -152,11 +162,11 @@ phi = {'a':0, 'b': math.pi/8,'c': math.pi/4, 'd': math.pi/4}
 theta = {'a':0, 'b': math.pi/2,'c': math.pi, 'd': 3*math.pi/2}
 rho = 26570 #km
 c=299792.458 #ljóshraði km/s
-#svar1,svar2 = daemi(r0,r1,r2,r3,r4,c)
+#svar1,svar2 = daemi1(r0,r1,r2,r3,r4,c)
 svar1,svar2 = daemi4(r02,r1,r2,r3,r4,c,rho,theta,phi)
-#print(phi['a'])
-#print(svar1)
-#print(svar2)
+
+print(svar1)
+print(svar2)
 
 
 #daemi1(r0,r1,r2,r3,r4,c)
