@@ -102,5 +102,7 @@ if maxFE <= abs(forwarderror):
 if errormagcoef <= abs(forwarderror/backwarderror):
     errormagcoef = abs(forwarderror/backwarderror)
 
+print("error magniﬁcation factor")
 print(errormagcoef)
+print("max distance error")
 print(maxFE)
