@@ -74,10 +74,10 @@ r3 = {'x':17610, 'y':14630,'z':13480,'d':0.07690 } #Gervitungl 3
 r4 = {'x':19170, 'y':610  ,'z':18390,'d':0.07242 } #Gervitungl 4
 r0 = {'x':0,'y':0,'z':6370,'d':0} #upphafsvigur
 c=299792.458 #ljóshraði km/s
-#svar1,svar2 = daemi(r0,r1,r2,r3,r4,c)
-#
-#print(svar1)
-#print(svar2)
+svar1,svar2 = daemi(r0,r1,r2,r3,r4,c)
+
+print(svar1)
+print(svar2)
 
 
-daemi1(r0,r1,r2,r3,r4,c)
+#daemi1(r0,r1,r2,r3,r4,c)
