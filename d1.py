@@ -82,25 +82,25 @@ def daemi4(r0,r1,r2,r3,r4,c,rho,theta,phi):
 	B['a']=rho*math.cos(phi['a'])*math.sin(theta['a'])
 	C['a']=rho*math.sin(phi['a'])
 	R[0]=math.sqrt(A['a']**2 + B['a']**2 + (C['a']-r0['z'])**2)
-	t['a']=r0['z'] + R[0]/c
+	t['a']=r0['d'] + R[0]/c
 
 	A['b']=rho*math.cos(phi['b'])*math.cos(theta['b'])
 	B['b']=rho*math.cos(phi['b'])*math.sin(theta['b'])
 	C['b']=rho*math.sin(phi['b'])
 	R[1]=math.sqrt(A['b']**2 + B['b']**2 + (C['b']-r0['z'])**2)
-	t['b']=r0['z'] + R[1]/c
+	t['b']=r0['d'] + R[1]/c
 
 	A['c']=rho*math.cos(phi['c'])*math.cos(theta['c'])
 	B['c']=rho*math.cos(phi['c'])*math.sin(theta['c'])
 	C['c']=rho*math.sin(phi['c'])
 	R[2]=math.sqrt(A['c']**2 + B['c']**2 + (C['c']-r0['z'])**2)
-	t['c']=r0['z'] + R[2]/c
+	t['c']=r0['d'] + R[2]/c
 	
 	A['d']=rho*math.cos(phi['d'])*math.cos(theta['d'])
 	B['d']=rho*math.cos(phi['d'])*math.sin(theta['d'])
 	C['d']=rho*math.sin(phi['d'])
 	R[3]=math.sqrt(A['d']**2 + B['d']**2 + (C['d']-r0['z'])**2)
-	t['d']=r0['z'] + R[3]/c
+	t['d']=r0['d'] + R[3]/c
 
 	dt=10**-8 #nákvæmni klukku í gervihnöttum
 	errorcoef=[[0,0,0,0],[0,0,0,1],[0,0,1,0],[0,0,1,1],[0,1,0,0],[0,1,0,1],[0,1,1,0],[0,1,1,1],[1,0,0,0],[1,0,0,1],[1,0,1,0],[1,0,1,1],[1,1,0,0],[1,1,0,1],[1,1,1,0],[1,1,1,1]]
@@ -109,7 +109,7 @@ def daemi4(r0,r1,r2,r3,r4,c,rho,theta,phi):
 	maxFE = 0
 	
 
-	for i in range(0,15):
+	for i in range(0,16):
 	
 		t_new =[
 			t['a'] + dt*errorcoef[i,0], 
@@ -133,9 +133,9 @@ def daemi4(r0,r1,r2,r3,r4,c,rho,theta,phi):
 			[(r0['x'] - A['d'])**2 + (r0['y'] - B['d'])**2 + (r0['z'] -  C['d'])**2 - (c*(t_new[3] - r0['d']))**2]
 			])
 			
-			#print(t_new[0])
+			
 			res=lin.solve(DF,F)
-			#res = lin.solve(DF,F)
+			
 		r0['x'] = r0['x'] - res[0][0]
 		r0['y'] = r0['y'] - res[1][0]
 		r0['z'] = r0['z'] - res[2][0]
