@@ -20,6 +20,7 @@ B = [r1[0], r2[1], r3[2], r4[3]]
 C = [r1[0], r2[1], r3[2], r4[3]]
 t_m = [r1[3], r2[3], r3[3], r4[3]]
 
+#Reikna hnit gervihnattanna
 for i in range(4):
     A[i] = rho*math.cos(phi[i])*math.cos(theta[i])
     B[i] = rho*math.cos(phi[i])*math.sin(theta[i])
@@ -27,15 +28,12 @@ for i in range(4):
     R[i] = math.sqrt(A[i]**2 + B[i]**2 + (C[i]-r0[2])**2)
     t_m[i] = r0[3] + R[i]/c
 print('A',A, '\n', 'B',B, '\n', 'C',C, '\n', 'R',R)
-teikna = False
+teikna = True
 if teikna is True:
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
     ax.scatter(r0[0], r0[1], r0[2], c='b', s=1000)
-    ax.scatter(A[0], A[1], A[2], c='r')
-    ax.scatter(B[0], B[1], B[2], c='r')
-    ax.scatter(C[0], C[1], C[2], c='r')
-    ax.scatter(R[0], R[1], R[2], c='r')
+    ax.scatter(A,B,C, c='r')
     # ax.scatter(19170,610,18390,c='r')
     ax.set_xlabel('x-ás (km)')
     ax.set_ylabel('y-ás (km)')
