@@ -36,7 +36,7 @@ for i in range(len(R)):
 t_m = dist.T # fjarlægðar fylki
 
 #### TEIKNA HER #### 
-teikna = False
+teikna = True
 if teikna is True:
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
