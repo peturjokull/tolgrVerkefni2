@@ -24,7 +24,7 @@ for i in range(4):
     A[i] = rho*math.cos(phi[i])*math.cos(theta[i])
     B[i] = rho*math.cos(phi[i])*math.sin(theta[i])
     C[i] = rho*math.cos(phi[i])
-    R[i] = math.sqrt(A[i]**2 + B[i]**2 + (C[i]-r0[3])**2)
+    R[i] = math.sqrt(A[i]**2 + B[i]**2 + (C[i]-r0[2])**2)
     t_m[i] = r0[3] + R[i]/c
 print('A',A, '\n', 'B',B, '\n', 'C',C, '\n', 'R',R)
 teikna = False
