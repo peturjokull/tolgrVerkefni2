@@ -34,7 +34,6 @@ if teikna is True:
     ax = fig.add_subplot(111, projection='3d')
     ax.scatter(r0[0], r0[1], r0[2], c='b', s=1000)
     ax.scatter(A,B,C, c='r')
-    # ax.scatter(19170,610,18390,c='r')
     ax.set_xlabel('x-ás (km)')
     ax.set_ylabel('y-ás (km)')
     ax.set_zlabel('z-ás (km)')
