@@ -11,8 +11,15 @@ r3 = [17610, 14630, 13480, 0.07690]  # Gervitungl 3
 r4 = [19170, 610, 18390, 0.07242]  # Gervitungl 4
 r0 = [0, 0, 6370, 0.0001]  # hnit mottakara
 rho = 26570  # km
-phi = [0, math.pi/8, math.pi/4, math.pi/4]
-theta = [0, math.pi/2, math.pi, 3*math.pi/2]
+
+### Dæmi 4 ####
+# phi = [0, math.pi/8, math.pi/4, math.pi/4]
+# theta = [0, math.pi/2, math.pi, 3*math.pi/2]
+###     ###
+### Dæmi 5 ####
+phi = [math.pi/4 +  math.pi/80, math.pi/4 - math.pi/80, math.pi/4 + math.pi/160, math.pi/4]
+theta = [math.pi/2 + math.pi/80, math.pi/2+math.pi/40, math.pi/2 -math.pi/80, math.pi/2]
+###      ####
 R = np.zeros(4)
 t_m = np.zeros(4)
 A = [r1[0], r2[0], r3[0], r4[0]]
@@ -28,7 +35,7 @@ for i in range(4):
     R[i] = math.sqrt(A[i]**2 + B[i]**2 + (C[i]-r0[2])**2)
     t_m[i] = r0[3] + R[i]/c
 print('A',A, '\n', 'B',B, '\n', 'C',C, '\n', 'R',R)
-teikna = True
+teikna = False
 if teikna is True:
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
